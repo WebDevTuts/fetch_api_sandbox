@@ -8,20 +8,25 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
-  <button id='getText'>Get Text</button>
-  <button id='getUsers'>Get JSON</button>
-  <button id='getPosts'>Get API DATA</button>
-  <hr>
-  <div id='output'></div>
-  <form id='addPost'>
-    <div>
-      <input type='text' id='title' placeholder='Title'>
+  <div class='container'>
+    <h1 class='display-4 mb-4'>Fetch API Sandbox</h1>
+    <div class='d-flex'>
+      <button class='btn btn-primary mr-4' id='getText'>Get Text</button>
+      <button class='btn btn-success mr-4' id='getUsers'>Get JSON</button>
+      <button class='btn btn-warning mr-4' id='getPosts'>Get API DATA</button>
     </div>
-    <div>
-      <textarea id='body' placeholder='Body'></textarea>
-    </div>
-    <input type='submit' value='Submit'>
-  </form>
+    <hr>
+    <div id='output'></div>
+    <form id='addPost'>
+      <div class='form-group'>
+        <input class='form-control' type='text' id='title' placeholder='Title'>
+      </div>
+      <div class='form-group'>
+        <textarea class='form-control' id='body' placeholder='Body'></textarea>
+      </div>
+      <input class='btn btn-secondary' type='submit' value='Submit'>
+    </form>
+  </div>
 
   <script>
     document.getElementById('getText').addEventListener('click', getText);
@@ -41,7 +46,7 @@
       fetch('sample.txt')
         .then((res) => res.text())
         .then((data) => {
-          document.getElementById('output').innerHTML = data;
+          document.getElementById('output').innerHTML = `<p class='mb-3'>${data}</p>`;
         })
         .catch((err) => console.log(err));
     }
@@ -50,13 +55,13 @@
       fetch('users.json')
         .then((res) => res.json())
         .then((data) => {
-          let output = '<h2>Users</h2>'
+          let output = '<h2 class="mb-4">Users</h2>'
           data.forEach(function(user) {
             output += `
-              <ul>
-                <li>ID: ${user.id}</li>
-                <li>name: ${user.name}</li>
-                <li>Email: ${user.email}</li>
+              <ul class='list-group mb-3'>
+                <li class='list-group-item'>ID: ${user.id}</li>
+                <li class='list-group-item'>name: ${user.name}</li>
+                <li class='list-group-item'>Email: ${user.email}</li>
               </ul>
             `;
           })
@@ -68,10 +73,10 @@
       fetch('https://jsonplaceholder.typicode.com/posts')
         .then((res) => res.json())
         .then((data) => {
-          let output = '<h2>Posts</h2>'
+          let output = '<h2 class="mb-4">Posts</h2>'
           data.forEach(function(post) {
             output += `
-              <div>
+              <div class='card card-body p-3 mb-3'>
                 <h3>${post.title}</h3>
                 <p>${post.body}</p>
               </div>
